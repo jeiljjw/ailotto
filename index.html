@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎱 로또 번호 분석 프로그램</title>
+    <link rel="stylesheet" href="lotto_styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <header class="header">
+            <h1><i class="fas fa-dice"></i> 로또 번호 분석 프로그램</h1>
+            <p class="subtitle">데이터 기반 로또 번호 분석 및 추천 시스템</p>
+        </header>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 탭 네비게이션 -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="overview">
+                    <i class="fas fa-chart-bar"></i> 개요
+                </button>
+                <button class="tab-btn" data-tab="frequency">
+                    <i class="fas fa-sort-amount-up"></i> 빈도 분석
+                </button>
+                <button class="tab-btn" data-tab="pattern">
+                    <i class="fas fa-puzzle-piece"></i> 패턴 분석
+                </button>
+                <button class="tab-btn" data-tab="cycle">
+                    <i class="fas fa-clock"></i> 주기 분석
+                </button>
+                <button class="tab-btn" data-tab="recommend">
+                    <i class="fas fa-magic"></i> 번호 추천
+                </button>
+                <button class="tab-btn" data-tab="visualization">
+                    <i class="fas fa-chart-line"></i> 시각화
+                </button>
+            </div>
+
+            <!-- 탭 콘텐츠 -->
+            <div class="tab-content">
+                <!-- 개요 탭 -->
+                <div id="overview" class="tab-pane active">
+                    <div class="card">
+                        <h2><i class="fas fa-info-circle"></i> 데이터 개요</h2>
+                        <div id="overviewContent" class="content-placeholder">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                            <p>데이터를 로드하는 중...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 빈도 분석 탭 -->
+                <div id="frequency" class="tab-pane">
+                    <div class="card">
+                        <h2><i class="fas fa-sort-amount-up"></i> 번호별 출현 빈도 분석</h2>
+                        <div class="analysis-options">
+                            <button id="analyzeFrequency" class="btn btn-primary">
+                                <i class="fas fa-play"></i> 빈도 분석 실행
+                            </button>
+                        </div>
+                        <div id="frequencyResult" class="analysis-result"></div>
+                    </div>
+                </div>
+
+                <!-- 패턴 분석 탭 -->
+                <div id="pattern" class="tab-pane">
+                    <div class="card">
+                        <h2><i class="fas fa-puzzle-piece"></i> 번호 패턴 분석</h2>
+                        <div class="analysis-options">
+                            <button id="analyzePattern" class="btn btn-primary">
+                                <i class="fas fa-play"></i> 패턴 분석 실행
+                            </button>
+                        </div>
+                        <div id="patternResult" class="analysis-result"></div>
+                    </div>
+                </div>
+
+                <!-- 주기 분석 탭 -->
+                <div id="cycle" class="tab-pane">
+                    <div class="card">
+                        <h2><i class="fas fa-clock"></i> 번호별 출현 주기 분석</h2>
+                        <div class="analysis-options">
+                            <button id="analyzeCycle" class="btn btn-primary">
+                                <i class="fas fa-play"></i> 주기 분석 실행
+                            </button>
+                        </div>
+                        <div id="cycleResult" class="analysis-result"></div>
+                    </div>
+                </div>
+
+                <!-- 번호 추천 탭 -->
+                <div id="recommend" class="tab-pane">
+                    <div class="card">
+                        <h2><i class="fas fa-magic"></i> 추천 번호 생성</h2>
+                        <div class="recommend-options">
+                            <div class="option-group">
+                                <label for="numRecommendations">추천 조합 수:</label>
+                                <select id="numRecommendations">
+                                    <option value="3">3개 조합</option>
+                                    <option value="5" selected>5개 조합</option>
+                                    <option value="10">10개 조합</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label for="strategy">추천 전략:</label>
+                                <select id="strategy">
+                                    <option value="mixed" selected>혼합 전략</option>
+                                    <option value="frequency">빈도 기반</option>
+                                    <option value="gap">미출현 기반</option>
+                                    <option value="balanced">균형 전략</option>
+                                </select>
+                            </div>
+                            <button id="generateRecommendations" class="btn btn-primary">
+                                <i class="fas fa-magic"></i> 번호 추천 받기
+                            </button>
+                        </div>
+                        <div id="recommendationResult" class="recommendation-result"></div>
+                    </div>
+                </div>
+
+                <!-- 시각화 탭 -->
+                <div id="visualization" class="tab-pane">
+                    <div class="card">
+                        <h2><i class="fas fa-chart-line"></i> 데이터 시각화</h2>
+                        <div class="chart-container">
+                            <canvas id="frequencyChart" width="800" height="400"></canvas>
+                        </div>
+                        <div class="chart-controls">
+                            <button id="showFrequencyChart" class="btn btn-secondary">빈도 차트</button>
+                            <button id="showCycleChart" class="btn btn-secondary">주기관계 차트</button>
+                            <button id="showPatternChart" class="btn btn-secondary">패턴 분포 차트</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 푸터 (전체 화면 폭) -->
+    <div style="width: 100vw; margin-left: calc(-50vw + 50%); padding: 0; margin-top: 0;">
+        <footer class="footer">
+            <p><i class="fas fa-exclamation-triangle"></i> 
+                로또는 완전한 무작위 추첨이므로 어떤 전략도 당첨을 보장하지 않습니다. 
+                분석은 과거 데이터의 통계적 패턴일 뿐, 미래를 예측하지 않습니다.
+            </p>
+        </footer>
+    </div>
+
+    <!-- 상태 메시지 영역 -->
+    <div id="dataStatus" class="status-message" style="display: none;"></div>
+    
+    <!-- 로딩 오버레이 -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>분석 중...</p>
+        </div>
+    </div>
+
+    <!-- 스크립트 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="lotto_analysis.js"></script>
+    <script src="lotto_charts.js"></script>
+    <script src="lotto_app.js"></script>
+</body>
+</html>
