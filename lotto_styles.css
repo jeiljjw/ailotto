@@ -673,6 +673,37 @@ body {
     margin: 20px 0;
 }
 
+/* 카카오 광고 스타일 */
+.kakao-ad-container {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    width: 160px;
+    height: 600px;
+    background: transparent;
+    pointer-events: none; /* 광고 영역을 클릭 가능하게 하려면 이 속성을 제거 */
+}
+
+.kakao-ad-container.left {
+    left: 20px;
+}
+
+.kakao-ad-container.right {
+    right: 20px;
+}
+
+.kakao-ad-container ins {
+    pointer-events: auto;
+}
+
+/* 모바일에서 광고 숨기기 */
+@media (max-width: 768px) {
+    .kakao-ad-container {
+        display: none;
+    }
+}
+
 /* 모바일 최적화 */
 @media (max-width: 768px) {
     .number-list {
